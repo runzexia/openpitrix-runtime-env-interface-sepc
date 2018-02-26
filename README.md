@@ -14,7 +14,7 @@ Public API for RuntimeEnvService :
 
 ## User create runtime_env 
 
-1. select runtime qingcloud/kubernetes
+1. add runtime label qingcloud/kubernetes
 2. input endpoint URL
 3. validate URL
 4. set runtime_env label
