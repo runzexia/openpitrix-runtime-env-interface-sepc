@@ -10,10 +10,7 @@ Public API for RuntimeEnvService :
 * DeleteRuntimeEnvCredential
 * AttachCredentialToRuntimeEnv
 * DetachCredentialFromRuntimeEnv
-* CreateRuntimeEnvLabel
-* DescribeRuntimeEnvLabels
-* ModifyRuntimeEnvLabel
-* DeleteRuntimeEnvLabel
+
 
 ## User create runtime_env 
 
