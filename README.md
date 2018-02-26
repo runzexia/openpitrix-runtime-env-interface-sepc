@@ -1,5 +1,3 @@
-# openpitrix-runtime-env-interface-sepc
-
 Public API for RuntimeEnvService :
 
 * CreateRuntimeEnv
@@ -17,7 +15,7 @@ Public API for RuntimeEnvService :
 * ModifyRuntimeEnvLabel
 * DeleteRuntimeEnvLabel
 
-## Operator create runtime_env 
+## User create runtime_env 
 
 1. select runtime qingcloud/kubernetes
 2. input endpoint URL
@@ -36,18 +34,17 @@ Public API for RuntimeEnvService :
 
   Request Parameters
 
-  | Parameter name | Type   | Description                | Required |
-  | -------------- | ------ | -------------------------- | -------- |
-  | runtime        | String | runtime name of env        | Yes      |
-  | name           | String | name of runtime_env        | Yes      |
-  | description    | String | description of runtime_env | No       |
-  | endpoint       | String | endpoint of runtime_env    | Yes      |
-  | zone           | String | zone of runtime_env        | Yes      |
-  | visibility     | String | visibility of runtime_env  | No       |
-  | owner          | String | owner of runtime_env       | No       |
-  
+  | Parameter name | Type   | Description                                     | Required |
+  | -------------- | ------ | ----------------------------------------------- | -------- |
+  | name           | String | name of runtime_env                             | Yes      |
+  | description    | String | description of runtime_env                      | No       |
+  | label          | Dict   | label of runtime_env, runtime label is required | Yes      |
+  | endpoint       | String | endpoint of runtime_env                         | Yes      |
+  | zone           | String | zone of runtime_env                             | Yes      |
+  | owner          | String | owner of runtime_env                            | No       |
+
   Response Elements
-  
+
   | Parameter name | Type    | Description                             |
   | -------------- | ------- | --------------------------------------- |
   | action         | String  | the corresponding action                |
@@ -60,13 +57,11 @@ Public API for RuntimeEnvService :
 
   | Parameter name | Type   | Description                                              | Required |
   | -------------- | ------ | -------------------------------------------------------- | -------- |
-  | runtime      | String | runtime name of env                                      | No       |
   | search_word    | String | search keyword, support runtime_env name | No       |
   | status         | Array | status of runtime_envs                                  | No       |
-  | runtime_env_label_ids | Array | id of runtime env labels | No |
   | runtime_env_ids | Array  | id of runtime_envs                                       | No       |
-  | visibility     | String | visibility of runtime_envs                               | No       |
-  | owners         | Array  | owner of runtime_envs                                   | No       |
+  | label | Dict  | label of runtime_envs                                       | No       |
+  | owners         | Array  | owner of runtime_envs                                   | No       ||
   | page_size | Integer | size of one page, default 10 | No |
   | page_number | Integer | page number, default 1 | No |
   | verbose | Integer | if 1 returns verbose information | No |
@@ -88,12 +83,10 @@ Public API for RuntimeEnvService :
   | Parameter name             | Type   | Description                                                  |
   | -------------------------- | ------ | ------------------------------------------------------------ |
   | runtime_env_id             | String | id of runtime_env                                            |
-  | runtime                    | String | runtime of runtime_env                                       |
   | name                       | String | name of runtime_env                                          |
   | description                | String | description of runtime_env                                   |
   | endpoint                   | String | endpoint of runtime_env                                      |
   | zone                       | String | zone of runtime_env                                          |
-  | visibility                 | String | visbility of runtime_env                                     |
   | owner                      | String | owner of runtime_env                                         |
   | status                     | String | status of runtime_env                                        |
   | runtime_env_credential_ids | Array  | crendentials attached to runtime_env, return this value when verbose = 1 |
@@ -103,7 +96,6 @@ Public API for RuntimeEnvService :
 
   | Parameter name       | Type   | Description                |
   | -------------------- | ------ | -------------------------- |
-  | runtime_env_label_id | String | id of runtime_env_label    |
   | label_key            | String | key of runtime_env_label   |
   | label_value          | String | value of runtime_env_label |
 
@@ -116,8 +108,31 @@ Public API for RuntimeEnvService :
   | runtime_env_id | String | id of runtime_env          | Yes      |
   | name           | String | name of runtime_env        | No       |
   | description    | String | description of runtime_env | No       |
-  | visibility     | String | visibility of runtime_env  | No       |
+  | add_labels     | Array  | add runtime_env label      | No       |
+  | modify_labels  | Array  | modify runtime_env label   | No       |
+  | delete_labels  | Array  | delete runtime_env label   | No       |
   | owner          | String | owner of runtime_env       | No       |
+
+  Request Item add_labels
+  
+  | Parameter name       | Type   | Description                |
+  | -------------------- | ------ | -------------------------- |
+  | label_key            | String | key of runtime_env_label   |
+  | label_value          | String | value of runtime_env_label |
+  
+  Request Item modify_labels
+  
+  | Parameter name       | Type   | Description                |
+  | -------------------- | ------ | -------------------------- |
+  | old_label_key            | String | old value of runtime_env_label key  |
+  | new_label_key            | String | new value of runtime_env_label key  |
+  | new_label_value          | String | new value of runtime_env_label value|
+  
+  Request Item delete_labels
+  
+  | Parameter name       | Type   | Description                |
+  | -------------------- | ------ | -------------------------- |
+  | label_key            | String | key of runtime_env_label   |
 
   Response Elements
 
@@ -265,100 +280,3 @@ Public API for RuntimeEnvService :
   | ------------------------- | ------- | --------------------------------------- |
   | action                    | String  | the corresponding action                |
   | ret_code                  | Integer | 0 is successful, others are error codes |
-  
-* CreateRuntimeEnvLabel
-
-  Request Parameters
-
-  | Parameter name            | Type   | Description                  | Required |
-  | ------------------------- | ------ | ---------------------------- | -------- |
-  | runtime_env_id            | String | id of runtime_env            | Yes      |
-  | label_key                 | String | key of label                 | Yes      |
-  | label_value               | String | value of label               | Yes      |
-  
-  
-  Response Elements
-
-  | Parameter name            | Type    | Description                             |
-  | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
-  | ret_code                  | Integer | 0 is successful, others are error codes |
-  | runtime_env_label_id      | String  | id of runtime_env_label                 |
-  
-* DescribeRuntimeEnvLabels
-
-  Request Parameters
-
-  | Parameter name        | Type    | Description                      | Required |
-  | --------------------- | ------- | -------------------------------- | -------- |
-  | runtime_env_labels    | Array   | runtime env labels               | No       |
-  | runtime_env_id        | String  | id of runtime env                | No       |
-  | page_size             | Integer | size of one page, default 10     | No       |
-  | page_number           | Integer | page number, default 1           | No       |
-  | verbose               | Integer | if 1 returns verbose information | No       |
-  
-  Request Item runtime_env_labels
-
-  | Parameter name       | Type   | Description                |
-  | -------------------- | ------ | -------------------------- |
-  | runtime_env_label_id | String | id of runtime_env_label    |
-  | label_key            | String | key of runtime_env_label   |
-  | label_value          | String | value of runtime_env_label |
-
-  Response Elements
-
-  | Parameter name             | Type    | Description                               |
-  | -------------------------- | ------- | ----------------------------------------- |
-  | action                     | String  | the corresponding action                  |
-  | ret_code                   | Integer | 0 is successful, others are error codes   |
-  | runtime_env_label_set      | Array   | JSON format runtime env label array       |
-  | total_count                | Integer | count of runtime env credentials set      |
-  | total_pages                | Integer | page of runtime env credentials set       |
-  | page_size                  | Integer | page_size of runtime env credentials set  |
-  | current_page               | Integer | current page runtime env credentials set  |
-
-  Response Item
-
-  | Parameter name       | Type   | Description                                                  |
-  | -------------------- | ------ | ------------------------------------------------------------ |
-  | runtime_env_label_id | String | id of runtime_env_credential                                 |
-  | label_key            | String | key of runtime_env_label                                     |
-  | label_value          | String | value of runtime_env_credential                              |
-  | runtime_env          | Dict   | infomation of attached runtime_env, return this value when verbose = 1 |
-
-* ModifyRuntimeEnvLabel
-
-  Request Parameters
-
-  | Parameter name       | Type   | Description             | Required |
-  | -------------------- | ------ | ----------------------- | -------- |
-  | runtime_env_label_id | String | id of runtime_env_label | Yes      |
-  | label_key            | String | key of label            | No       |
-  | label_value          | String | value of label          | No       |
-  
-  
-  Response Elements
-
-  | Parameter name            | Type    | Description                             |
-  | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
-  | ret_code                  | Integer | 0 is successful, others are error codes |
-  | runtime_env_label_id      | String  | id of runtime_env_label                 |
-  
-* DeleteRuntimeEnvLabel
-
-  Request Parameters
-
-  | Parameter name            | Type   | Description                  | Required |
-  | ------------------------- | ------ | ---------------------------- | -------- |
-  | runtime_env_label_id      | String | id of runtime_env_label      | Yes      |
-  
-  
-  Response Elements
-
-  | Parameter name            | Type    | Description                             |
-  | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
-  | ret_code                  | Integer | 0 is successful, others are error codes |
-  | runtime_env_label_id      | String  | id of runtime_env_label                 |
-  
