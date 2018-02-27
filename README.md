@@ -35,14 +35,13 @@ Public API for RuntimeEnvService :
   | -------------- | ------ | ----------------------------------------------- | -------- |
   | name           | String | name of runtime_env                             | Yes      |
   | description    | String | description of runtime_env                      | No       |
-  | labels          | String   | labels of runtime_env, "runtime" label is required, vm_based-runtime "zone" is required format "runtime=qingcloud,env=production" | Yes      |
+  | labels          | String   | labels of runtime_env, "runtime" label is required, vm_based-runtime "zone" is required, format "runtime=qingcloud,env=production" | Yes      |
   | runtime_env_url            | String | url of runtime_env                         | Yes      |
 
   Response Elements
 
   | Parameter name | Type    | Description                             |
   | -------------- | ------- | --------------------------------------- |
-  | action         | String  | the corresponding action                |
   | runtime_env_id | String  | id of runtime_env                       |
 
 * DescribeRuntimeEnvs
@@ -56,7 +55,7 @@ Public API for RuntimeEnvService :
   | runtime_env_ids | Array  | id of runtime_envs                                       | No       |
   | selector | String  | selector of runtime_envs,format "runtime=qingcloud,runtime=aws,env=production"| No       |
   | owner         | String  | owner of runtime_envs                                   | No       |
-  | limit  | Integer | size of one page, default 10 ,max 100 | No |
+  | limit  | Integer | size of one page, default 10, max 100 | No |
   | offset | Integer | data offset, default 0  | No |
   | verbose | Integer | if 1 returns verbose information | No |
 
@@ -64,10 +63,8 @@ Public API for RuntimeEnvService :
 
   | Parameter name  | Type    | Description                             |
   | --------------- | ------- | --------------------------------------- |
-  | action          | String  | the corresponding action                |
   | runtime_env_set | Array   | JSON format runtime_env array           |
   | total_count     | Integer | count of runtime_env_set                |
-
 
   Response Item
 
@@ -100,8 +97,15 @@ Public API for RuntimeEnvService :
 
   | Parameter name | Type    | Description                             |
   | -------------- | ------- | --------------------------------------- |
-  | action         | String  | the corresponding action                |
-  | runtime_env_id | String  | id of runtime_env                       |
+  | runtime_env_id             | String | id of runtime_env                                            |
+  | name                       | String | name of runtime_env                                          |
+  | description                | String | description of runtime_env                                   |
+  | runtime_env_url                   | String | url of runtime_env                                      |
+  | labels         | String  | labels of runtime_env,format "runtime=qingcloud,runtime=aws,env=production"|
+  | owner                      | String | owner of runtime_env                                         |
+  | status                     | String | status of runtime_env                                        |
+  | create_time                | Timestamp | create_time of runtime_env                                        |
+  | status_time                     | Timestamp | status_time of runtime_env                                        |
 
 * DeleteRuntimeEnv
 
@@ -115,7 +119,6 @@ Public API for RuntimeEnvService :
 
   | Parameter name | Type    | Description                             |
   | -------------- | ------- | --------------------------------------- |
-  | action         | String  | the corresponding action                |
   | runtime_env_id | String  | id of runtime_env                       |
 
 * CreateRuntimeEnvCredential
@@ -132,7 +135,6 @@ Public API for RuntimeEnvService :
 
   | Parameter name            | Type    | Description                             |
   | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
   | runtime_env_credential_id | String  | id of runtime_env                       |
 
 * DescribeRuntimeEnvCredentials
@@ -147,13 +149,12 @@ Public API for RuntimeEnvService :
   | offset | Integer | data offset, default 0  | No |
   | verbose                    | Integer | if 1 returns verbose information                    | No       |
   | owner                      | String  | owner of runtime env credential                     | No       |
-  | status                     | String | status of runtime_env                                | No       | 
+  | status                     | String | status of runtime_env                                | No       |
 
   Response Elements
 
   | Parameter name             | Type    | Description                               |
   | -------------------------- | ------- | ----------------------------------------- |
-  | action                     | String  | the corresponding action                  |
   | runtime_env_credential_set | Array   | JSON format runtime env credentials array |
   | total_count                | Integer | count of runtime env credentials set      |
 
@@ -186,8 +187,14 @@ Public API for RuntimeEnvService :
 
   | Parameter name            | Type    | Description                             |
   | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
-  | runtime_env_credential_id | String  | id of runtime_env_credential            |
+  | runtime_env_credential_id | String | id of runtime_env_credential                                 |
+  | name                      | String | name of runtime_env_credential                               |
+  | description               | String | description of runtime_env_credential                        |
+  | content                   | Dict   | content of runtime_env_credential                            |
+  | owner                     | String | owner of runtime_env_credential                              |
+  | status                     | String | status of runtime_env                                        |
+  | create_time                | Timestamp | create_time of runtime_env                                        |
+  | status_time                     | Timestamp | status_time of runtime_env                                        |
   
 * DeleteRuntimeEnvCredential
 
@@ -201,7 +208,6 @@ Public API for RuntimeEnvService :
 
   | Parameter name            | Type    | Description                             |
   | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
   | runtime_env_credential_id | String  | id of runtime_env_credential            |
   
 * AttachCredentialToRuntimeEnv
@@ -217,8 +223,7 @@ Public API for RuntimeEnvService :
 
   | Parameter name            | Type    | Description                             |
   | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
-  | runtime_env_credential_id | String | id of runtime_env_credential 
+  | runtime_env_credential_id | String | id of runtime_env_credential |
   | runtime_env_id            | String | id of runtime_env            |
 
 * DetachCredentialFromRuntimeEnv
@@ -234,6 +239,5 @@ Public API for RuntimeEnvService :
 
   | Parameter name            | Type    | Description                             |
   | ------------------------- | ------- | --------------------------------------- |
-  | action                    | String  | the corresponding action                |
   | runtime_env_credential_id | String | id of runtime_env_credential |
   | runtime_env_id            | String | id of runtime_env            |
